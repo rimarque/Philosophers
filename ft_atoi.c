@@ -6,11 +6,9 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:58:27 by rimarque          #+#    #+#             */
-/*   Updated: 2023/06/30 20:42:14 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:33:53 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../includes/libft.h"
 
 int	ft_atoi(const char *str)
 {

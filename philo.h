@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/13 22:19:39 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:25:43 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 
+# define DEAD -1
 # define THINKING 0
 # define EATING 1
 # define SLEEPING 2
@@ -37,6 +38,9 @@ typedef struct s_node
 	int				index;
 	t_fork			fork;
 	int				status;
+	int				time_no_eat;
+	int				last_eat;
+	//pthread_mutex_t	mutex;
 	struct s_node	*next;
 }t_node;
 
@@ -49,9 +53,12 @@ typedef struct s_list
 	int		time_eat;
 	int		time_sleep;
 	int		n_eat;
+	long int	time_boot;
 	pthread_mutex_t	mutex;
 }t_list;
 
 int	ft_atoi(const char *str);
+t_node *create_node(int count);
+void	insert_last(t_list *stack, t_node *new);
 
 #endif

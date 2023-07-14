@@ -6,7 +6,7 @@
 #    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/07/13 14:29:24 by rimarque         ###   ########.fr        #
+#    Updated: 2023/07/14 17:33:32 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ CC = cc
 RM = rm -rf
 
 #------------------------------------  FLAGS  ---------------------------------
-#CFLAGS	= -Wall -Wextra -Werror -g -pthread #-fsanitize=address
-CFLAGS = = -pthread #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g -pthread #-fsanitize=address
 NPD		= --no-print-directory
 CMLX	= -Ilmlx -lXext -lX11 -lm
 
@@ -35,6 +34,8 @@ CMLX	= -Ilmlx -lXext -lX11 -lm
 NAME = philo
 
 SRC = philo.c \
+		list.c \
+		ft_atoi.c
 
 #----------------------------------  RULES  ----------------------------------
 all: $(NAME)
