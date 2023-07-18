@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
+#    By: rimarque <rimarque>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/07/14 17:33:32 by rimarque         ###   ########.fr        #
+#    Updated: 2023/07/18 14:25:01 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ CMLX	= -Ilmlx -lXext -lX11 -lm
 NAME = philo
 
 SRC = philo.c \
+		init.c \
 		list.c \
 		ft_atoi.c
 

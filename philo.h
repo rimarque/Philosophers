@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/14 19:25:43 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:37:44 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define DROPED 3
 # define USING 4
 
+struct s_list;
+
 typedef struct s_fork
 {
 	int				status;
@@ -40,8 +42,9 @@ typedef struct s_node
 	int				status;
 	int				time_no_eat;
 	int				last_eat;
-	//pthread_mutex_t	mutex;
+	pthread_mutex_t	mutex;
 	struct s_node	*next;
+	struct s_list	*data;
 }t_node;
 
 typedef struct s_list
@@ -55,10 +58,13 @@ typedef struct s_list
 	int		n_eat;
 	long int	time_boot;
 	pthread_mutex_t	mutex;
+	int flag;
 }t_list;
 
+void init_list(t_list *data, int argc, char **argv);
 int	ft_atoi(const char *str);
-t_node *create_node(int count);
+t_node *create_node(int count, t_list *data);
 void	insert_last(t_list *stack, t_node *new);
+void	rotate(t_list *stack);
 
 #endif

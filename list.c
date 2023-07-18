@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:52:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/14 17:32:21 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:37:24 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_node *create_node(int count)
+t_node *create_node(int count, t_list *data)
 {
 	t_node *new;
 
@@ -23,8 +23,9 @@ t_node *create_node(int count)
 	new->fork.status = DROPED;
 	pthread_mutex_init(&new->fork.mutex, NULL);
 	new->status = THINKING;
-	//pthread_mutex_init(&new->mutex, NULL);
+	pthread_mutex_init(&new->mutex, NULL);
 	new->last_eat = 0;
+	new->data = data;
 	return(new);
 }
 
@@ -65,3 +66,9 @@ void	free_list(t_list *data)
 	data->head = NULL;
 }
 
+void	rotate(t_list *stack)
+{
+	if (stack->n_eat <= 1)
+		return ;
+	stack->head = stack->head->next;
+}
