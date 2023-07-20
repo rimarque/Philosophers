@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:02:44 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/18 22:45:36 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:32:28 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,27 @@ int program_time(t_list *data)
 	return(program_time);
 }
 
-void take_forks_even(t_node *philo)
+void take_forks_odd(t_node *philo)
 {
 	pthread_mutex_lock(&philo->fork.mutex);
-	philo->fork.status = USING;
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d as taken a fork\n", program_time(philo->data), philo->index);
+	printf("%d %d has taken a his fork\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex);
 	pthread_mutex_lock(&philo->prev->fork.mutex);
-	philo->prev->fork.status = USING;
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d as taken a fork\n", program_time(philo->data), philo->index);
+	printf("%d %d has taken %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
 	pthread_mutex_unlock(&philo->data->mutex);
 }
 
-void take_forks_odd(t_node *philo)
+void take_forks_even(t_node *philo)
 {
 	pthread_mutex_lock(&philo->prev->fork.mutex);
-	philo->prev->fork.status = USING;
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d as taken a fork\n", program_time(philo->data), philo->index);
+	printf("%d %d has taken %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
 	pthread_mutex_unlock(&philo->data->mutex);
 	pthread_mutex_lock(&philo->fork.mutex);
-	philo->fork.status = USING;
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d as taken a fork\n", program_time(philo->data), philo->index);
+	printf("%d %d has taken his fork\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex);
 }
 
@@ -64,49 +60,65 @@ void	ft_usleep(t_node *philo, int time)
 void	eating(t_node *philo)
 {
 	philo->time_no_eat = program_time(philo->data) - philo->last_eat;
+	//printf("Philo: %d, time no eat: %d, last_eat: %d\n", philo->index, philo->time_no_eat, philo->last_eat);
 	philo->last_eat = program_time(philo->data);
+//	printf("Philo: %d, last_eat: %d\n", philo->index, philo->last_eat);
 	if(philo->time_no_eat > philo->data->time_die)
 	{
+		//printf("Philo: %d, time no eat: %d, time die: %d\n", philo->index, philo->time_no_eat, philo->data->time_die);
 		philo->status = DEAD;
 		pthread_mutex_lock(&philo->data->mutex);
-		printf("(%d): Philo %d is dead\n", program_time(philo->data), philo->index);
+		printf("%d %d died\n", program_time(philo->data), philo->index);
 		pthread_mutex_unlock(&philo->data->mutex);
+		exit(3);
 	}
 	philo->status = EATING;
-	ft_usleep(philo, philo->data->time_eat);
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d is eating\n", program_time(philo->data), philo->index);
+	printf("%d %d is eating\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex);
+	ft_usleep(philo, philo->data->time_eat);
 }
 
 void	drop_forks(t_node *philo)
 {
-	philo->prev->fork.status = DROPED;
-	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d has droped a fork\n", program_time(philo->data), philo->index);
-	pthread_mutex_unlock(&philo->data->mutex);
-	pthread_mutex_unlock(&philo->prev->fork.mutex);
-	philo->fork.status = DROPED;
-	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d has droped a fork\n", program_time(philo->data), philo->index);
-	pthread_mutex_unlock(&philo->data->mutex);
-	pthread_mutex_unlock(&philo->fork.mutex);
+	if(philo->index % 2 == 0)
+	{
+		pthread_mutex_unlock(&philo->prev->fork.mutex);
+		pthread_mutex_lock(&philo->data->mutex);
+		printf("%d %d has DROPED %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
+		pthread_mutex_unlock(&philo->data->mutex);
+		pthread_mutex_unlock(&philo->fork.mutex);
+		pthread_mutex_lock(&philo->data->mutex);
+		printf("%d %d has DROPED a his fork\n", program_time(philo->data), philo->index);
+		pthread_mutex_unlock(&philo->data->mutex);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->fork.mutex);
+		pthread_mutex_lock(&philo->data->mutex);
+		printf("%d %d has DROPED a his fork\n", program_time(philo->data), philo->index);
+		pthread_mutex_unlock(&philo->data->mutex);
+		pthread_mutex_unlock(&philo->prev->fork.mutex);
+		pthread_mutex_lock(&philo->data->mutex);
+		printf("%d %d has DROPED %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
+		pthread_mutex_unlock(&philo->data->mutex);
+	}
 }
 
 void	sleeping(t_node *philo)
 {
 	philo->status = SLEEPING;
-	ft_usleep(philo, philo->data->time_sleep);
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d is sleeping\n", program_time(philo->data), philo->index);
+	printf("%d %d is sleeping\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex);
+	ft_usleep(philo, philo->data->time_sleep);
 }
 
 void	thinking(t_node *philo)
 {
 	philo->status = THINKING;
 	pthread_mutex_lock(&philo->data->mutex);
-	printf("(%d): Philo %d is thinking\n", program_time(philo->data), philo->index);
+	printf("%d %d is thinking\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex);
 }
 
@@ -133,32 +145,37 @@ void	*routine(void *pointer)
 {
 	t_node *philo;
 
-	//data = (t_list *) malloc(sizeof((t_list *)pointer));
-	//data = ((t_list *)pointer);
-	/*pthread_mutex_lock(&((t_list *)pointer)->mutex);
-	if (data->flag == 0)
-		data->flag = 1;
-	else
-		rotate(data);
-	pthread_mutex_unlock(&((t_list *)pointer)->mutex);*/
 	philo = malloc(sizeof(t_node));
 	philo = (t_node *)pointer;
 	pthread_mutex_lock(&((t_node *)pointer)->mutex);
-	printf("philo id: %d\n", philo->index);
+	//printf("philo id: %d\n", philo->index);
 	pthread_mutex_unlock(&((t_node *)pointer)->mutex);
+	//if(philo->data->n_philo % 2 != 0 && philo->index == philo->data->n_philo)
+	//		usleep(1000);
 	//while(check_death(*data) || philo->time_no_eat < ((t_list *)data)->time_die)
 	while(1)
 	{
 		//printf("oi\n");
 		if(philo->index % 2 == 0)
 		{
+			//ft_usleep(philo, 1);
+			//ft_usleep(philo, philo->data->time_eat / 50);
 			take_forks_even(philo);
 			eating(philo);
 			drop_forks(philo);
 		}
 		else
 		{
-			usleep(philo->data->time_eat * 1000 / 2);
+			if(philo->index == philo->data->n_philo) //QUANDO HA NUMERO IMPAR DE FILOSOFOS, O ULTIMO ESPERA UM POUCO
+			{
+				ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //para que o 1o e ultimo n intercalem, deixando os outros a morrer
+				//usleep(1000);
+			}
+			if(philo->data->n_philo > 3)
+				ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //Para nao fazer par impar misturado
+			//if(philo->data->n_philo % 2 != 0)
+			//	ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM SÓ QUANDO O N_PHILO E IMPAR
+			//ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM (FUNCIONA PARA 2/3/4/5/6/7/8/10 500/620 200 200)
 			take_forks_odd(philo);
 			eating(philo);
 			drop_forks(philo);
@@ -192,7 +209,7 @@ void init_threads(t_list *data)
 		//	usleep(data->time_eat * 1000 / 500);
 		if(pthread_create(th + data->index, NULL, &routine, philo))
 		{
-			printf("create thread malfuntction");
+			printf("create thread malfuntction\n");
 			exit(2); //FUNCTION NOT ALLOWED
 		}
 		philo = philo->next;
@@ -204,7 +221,7 @@ void init_threads(t_list *data)
 	{
 		if(pthread_join(*(th + data->index), NULL))
 		{
-			printf("join thread malfuntction");
+			printf("join thread malfuntction\n");
 			exit(2);
 		}
 	}
