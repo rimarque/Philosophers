@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:52:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/18 22:37:24 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:22:24 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ t_node *create_node(int count, t_list *data)
 	pthread_mutex_init(&new->fork.mutex, NULL);
 	new->status = THINKING;
 	pthread_mutex_init(&new->mutex, NULL);
+	if(new->index % 2 == 0)
+		new->mutex_even = &data->mutex_even;
+	else
+		new->mutex_odd = &data->mutex_odd;
 	new->last_eat = 0;
 	new->data = data;
 	return(new);

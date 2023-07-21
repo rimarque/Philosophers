@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/18 22:37:44 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:45:24 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_node
 	int				time_no_eat;
 	int				last_eat;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex_even;
+	pthread_mutex_t	*mutex_odd;
 	struct s_node	*next;
 	struct s_list	*data;
 }t_node;
@@ -57,7 +59,9 @@ typedef struct s_list
 	int		time_sleep;
 	int		n_eat;
 	long int	time_boot;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	mutex_print;
+	pthread_mutex_t	mutex_even;
+	pthread_mutex_t	mutex_odd;
 	int flag;
 }t_list;
 
