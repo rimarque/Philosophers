@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:52:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/21 11:22:24 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:21:12 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_node *create_node(int count, t_list *data)
 		new->mutex_even = &data->mutex_even;
 	else
 		new->mutex_odd = &data->mutex_odd;
+	pthread_mutex_init(&new->mutex_fork, NULL);
 	new->last_eat = 0;
 	new->data = data;
 	return(new);

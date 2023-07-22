@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/21 13:23:09 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:24:30 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_node
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	*mutex_even;
 	pthread_mutex_t	*mutex_odd;
+	pthread_mutex_t	mutex_fork;
 	struct s_node	*next;
 	struct s_list	*data;
 }t_node;
@@ -62,7 +63,7 @@ typedef struct s_list
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_even;
 	pthread_mutex_t	mutex_odd;
-	pthread_mutex_t	mutex_think;
+	pthread_mutex_t	mutex_fork;
 	//pthread_mutex_t	mutex_think;
 	int flag;
 }t_list;

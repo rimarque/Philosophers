@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:02:44 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/21 13:44:46 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:35:01 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,13 +181,14 @@ void	*routine_odd(void *pointer)
 	while(1)
 	{
 		//printf("oi\n");
+		//pthread_mutex_lock(&philo->mutex_fork);
 		if(philo->index % 2 == 0)
 		{
 			//ft_usleep(philo, 1);
 			//ft_usleep(philo, philo->data->time_eat / 50);
-			//pthread_mutex_lock(philo->mutex_even);
+			pthread_mutex_lock(&philo->data->mutex_even);
 			take_forks_even(philo);
-			//pthread_mutex_unlock(philo->mutex_even);
+			pthread_mutex_unlock(&philo->data->mutex_even);
 			eating(philo);
 			drop_forks(philo);
 		}
@@ -202,13 +203,14 @@ void	*routine_odd(void *pointer)
 				ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //Para nao fazer par impar misturado (100 ou 10??) ->> testar, ver codigos
 			//if(philo->data->n_philo % 2 != 0)
 			//	ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM SÓ QUANDO O N_PHILO E IMPAR
-			//ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM (FUNCIONA PARA 2/3/4/5/6/7/8/10 500/620 200 200)
-			//pthread_mutex_lock(philo->mutex_odd);
+			//ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM (FUNCIONA PARA 2/3/4/5/6/7/8/10 420/620 200 200)
+			pthread_mutex_lock(&philo->data->mutex_odd);
 			take_forks_odd(philo);
-			//pthread_mutex_unlock(philo->mutex_odd);
+			pthread_mutex_unlock(&philo->data->mutex_odd);
 			eating(philo);
 			drop_forks(philo);
 		}
+		//pthread_mutex_unlock(&philo->mutex_fork);
 		sleeping(philo);
 		thinking(philo);
 	}
