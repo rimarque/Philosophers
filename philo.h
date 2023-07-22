@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/21 10:45:24 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:23:09 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_list
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_even;
 	pthread_mutex_t	mutex_odd;
+	pthread_mutex_t	mutex_think;
+	//pthread_mutex_t	mutex_think;
 	int flag;
 }t_list;
 

@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:02:44 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/21 12:23:43 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:44:46 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ void take_forks_odd(t_node *philo)
 {
 	pthread_mutex_lock(&philo->fork.mutex);
 	pthread_mutex_lock(&philo->data->mutex_print);
-	printf("%d %d has taken a his fork\n", program_time(philo->data), philo->index);
+	printf("%d %d has taken a fork\n", program_time(philo->data), philo->index);
+	//printf("%d %d has taken a his fork\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex_print);
 	pthread_mutex_lock(&philo->prev->fork.mutex);
 	pthread_mutex_lock(&philo->data->mutex_print);
-	printf("%d %d has taken %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
+	printf("%d %d has taken a fork\n", program_time(philo->data), philo->index);
+	//printf("%d %d has taken %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
 	pthread_mutex_unlock(&philo->data->mutex_print);
 }
 
@@ -38,11 +40,13 @@ void take_forks_even(t_node *philo)
 {
 	pthread_mutex_lock(&philo->prev->fork.mutex);
 	pthread_mutex_lock(&philo->data->mutex_print);
-	printf("%d %d has taken %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
+	printf("%d %d has taken a fork\n", program_time(philo->data), philo->index);
+	//printf("%d %d has taken %d fork\n", program_time(philo->data), philo->index, philo->prev->index);
 	pthread_mutex_unlock(&philo->data->mutex_print);
 	pthread_mutex_lock(&philo->fork.mutex);
 	pthread_mutex_lock(&philo->data->mutex_print);
-	printf("%d %d has taken his fork\n", program_time(philo->data), philo->index);
+	printf("%d %d has taken a fork\n", program_time(philo->data), philo->index);
+	//printf("%d %d has taken his fork\n", program_time(philo->data), philo->index);
 	pthread_mutex_unlock(&philo->data->mutex_print);
 }
 
@@ -94,6 +98,7 @@ void take_forks(t_node *philo) //2/4 410/450 200 200;
 	if(philo->index % 2 != 0)
 	{
 		//pthread_mutex_lock(philo->mutex_odd);
+		//ft_usleep(philo, philo->data->time_eat / 40);
 		take_forks_odd(philo);
 		//pthread_mutex_unlock(philo->mutex_odd);
 	}
@@ -161,7 +166,7 @@ void	thinking(t_node *philo)
 	return (0);
 }*/
 
-/*void	*routine(void *pointer)
+void	*routine_odd(void *pointer)
 {
 	t_node *philo;
 
@@ -180,9 +185,9 @@ void	thinking(t_node *philo)
 		{
 			//ft_usleep(philo, 1);
 			//ft_usleep(philo, philo->data->time_eat / 50);
-			pthread_mutex_lock(philo->mutex_even);
+			//pthread_mutex_lock(philo->mutex_even);
 			take_forks_even(philo);
-			pthread_mutex_unlock(philo->mutex_even);
+			//pthread_mutex_unlock(philo->mutex_even);
 			eating(philo);
 			drop_forks(philo);
 		}
@@ -198,9 +203,9 @@ void	thinking(t_node *philo)
 			//if(philo->data->n_philo % 2 != 0)
 			//	ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM SÓ QUANDO O N_PHILO E IMPAR
 			//ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM (FUNCIONA PARA 2/3/4/5/6/7/8/10 500/620 200 200)
-			pthread_mutex_lock(philo->mutex_odd);
+			//pthread_mutex_lock(philo->mutex_odd);
 			take_forks_odd(philo);
-			pthread_mutex_unlock(philo->mutex_odd);
+			//pthread_mutex_unlock(philo->mutex_odd);
 			eating(philo);
 			drop_forks(philo);
 		}
@@ -208,9 +213,9 @@ void	thinking(t_node *philo)
 		thinking(philo);
 	}
 	return(NULL);
-}*/
+}
 
-void	*routine(void *pointer)
+void	*routine_even(void *pointer)
 {
 	t_node *philo;
 
@@ -224,15 +229,15 @@ void	*routine(void *pointer)
 	//while(check_death(*data) || philo->time_no_eat < ((t_list *)data)->time_die)
 	while(1)
 	{
-		if(philo->index % 2 != 0)
-			pthread_mutex_lock(philo->mutex_odd);
+		//if(philo->data->n_philo > 3 && philo->index % 2 == 0)
+		//		ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10));
 		take_forks(philo);
-		if(philo->index % 2 != 0)
-			pthread_mutex_lock(philo->mutex_odd);
 		eating(philo);
 		drop_forks(philo);
 		sleeping(philo);
+		//pthread_mutex_lock(&philo->data->mutex_think);
 		thinking(philo);
+		//pthread_mutex_unlock(&philo->data->mutex_think);
 	}
 	return(NULL);
 }
@@ -253,18 +258,34 @@ void init_threads(t_list *data)
 	}*/
 	count = 0;
 	//printf("n_philo = %d\n", data->n_philo);
-	while(count++ < data->n_philo)
+	if (data->n_philo % 2 == 0)
 	{
-		//printf("create thread with id = %d\n", philo->index);
-		//if(data->index == 0)
-		//	usleep(data->time_eat * 1000 / 500);
-		if(pthread_create(th + data->index, NULL, &routine, philo))
+		while(count++ < data->n_philo)
 		{
-			printf("create thread malfuntction\n");
-			exit(2); //FUNCTION NOT ALLOWED
+			//printf("create thread with id = %d\n", philo->index);
+			//if(data->index == 0)
+			//	usleep(data->time_eat * 1000 / 500);
+			if(pthread_create(th + data->index, NULL, &routine_odd, philo))
+			{
+				printf("create thread malfuntction\n");
+				exit(2); //FUNCTION NOT ALLOWED
+			}
+			philo = philo->next;
 		}
-		philo = philo->next;
 	}
+	else
+		while(count++ < data->n_philo)
+		{
+			//printf("create thread with id = %d\n", philo->index);
+			//if(data->index == 0)
+			//	usleep(data->time_eat * 1000 / 500);
+			if(pthread_create(th + data->index, NULL, &routine_odd, philo))
+			{
+				printf("create thread malfuntction\n");
+				exit(2); //FUNCTION NOT ALLOWED
+			}
+			philo = philo->next;
+		}
 	//THREAD CHECK DEATH
 	//THREAD CHECK FULL
 	count = 0;
