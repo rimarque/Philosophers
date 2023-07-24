@@ -42,7 +42,9 @@ void init_list(t_list *data, int argc, char **argv)
 		data->n_eat = ft_atoi(argv[5]);
 	data->index = 0;
 	data->head = NULL;
-	data->flag = 0;
+	data->dif = data->time_eat - data->time_sleep;
+	if (data->dif < 0)
+		data->dif = 0;
 	pthread_mutex_init(&data->mutex_print, NULL);
 	pthread_mutex_init(&data->mutex_even, NULL);
 	pthread_mutex_init(&data->mutex_odd, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
+/*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:02:44 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/22 11:35:01 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:32:30 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,39 +178,46 @@ void	*routine_odd(void *pointer)
 	//if(philo->data->n_philo % 2 != 0 && philo->index == philo->data->n_philo)
 	//		usleep(1000);
 	//while(check_death(*data) || philo->time_no_eat < ((t_list *)data)->time_die)
+	if (philo->index % 2 != 0)
+		ft_usleep(philo, 1);
 	while(1)
 	{
 		//printf("oi\n");
-		//pthread_mutex_lock(&philo->mutex_fork);
 		if(philo->index % 2 == 0)
 		{
 			//ft_usleep(philo, 1);
 			//ft_usleep(philo, philo->data->time_eat / 50);
-			pthread_mutex_lock(&philo->data->mutex_even);
+			//pthread_mutex_lock(&philo->data->mutex_even);
 			take_forks_even(philo);
-			pthread_mutex_unlock(&philo->data->mutex_even);
+			//pthread_mutex_unlock(&philo->data->mutex_even);
 			eating(philo);
 			drop_forks(philo);
 		}
 		else
 		{
-			if(philo->index == philo->data->n_philo) //QUANDO HA NUMERO IMPAR DE FILOSOFOS, O ULTIMO ESPERA UM POUCO
+			/*if(philo->index == philo->data->n_philo) //QUANDO HA NUMERO IMPAR DE FILOSOFOS, O ULTIMO ESPERA UM POUCO
 			{
-				ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //para que o 1o e ultimo n intercalem, deixando os outros a morrer
+				//ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //para que o 1o e ultimo n intercalem, deixando os outros a morrer
+				ft_usleep(philo, philo->data->time_eat);
 				//usleep(1000);
+			}*/
+			if(philo->data->n_philo % 2 != 0)
+			{
+				//printf("philo: %d", philo->data->dif);
+				ft_usleep(philo, philo->data->dif + 10);
 			}
-			if(philo->data->n_philo > 3)
-				ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //Para nao fazer par impar misturado (100 ou 10??) ->> testar, ver codigos
+			//	ft_usleep(philo, philo->data->time_eat / (philo->data->n_philo * 10)); //quanto mais threads, menos espero //Para nao fazer par impar misturado (100 ou 10??) ->> testar, ver codigos
+			//ft_usleep(philo, philo->data->time_eat / 200);
 			//if(philo->data->n_philo % 2 != 0)
 			//	ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM SÓ QUANDO O N_PHILO E IMPAR
 			//ft_usleep(philo, philo->data->time_eat / 2); //OS IMPARES ESPERAM (FUNCIONA PARA 2/3/4/5/6/7/8/10 420/620 200 200)
-			pthread_mutex_lock(&philo->data->mutex_odd);
+			//pthread_mutex_lock(&philo->data->mutex_odd);
 			take_forks_odd(philo);
-			pthread_mutex_unlock(&philo->data->mutex_odd);
+			//pthread_mutex_unlock(&philo->data->mutex_odd);
 			eating(philo);
 			drop_forks(philo);
 		}
-		//pthread_mutex_unlock(&philo->mutex_fork);
+		pthread_mutex_unlock(&philo->mutex_fork);
 		sleeping(philo);
 		thinking(philo);
 	}

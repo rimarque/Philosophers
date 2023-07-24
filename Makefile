@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimarque <rimarque>                        +#+  +:+       +#+         #
+#    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/07/18 14:25:01 by rimarque         ###   ########.fr        #
+#    Updated: 2023/07/24 18:47:15 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC = cc
 RM = rm -rf
 
 #------------------------------------  FLAGS  ---------------------------------
-CFLAGS	= -Wall -Wextra -Werror -g -pthread #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -pthread #-fsanitize=address
 NPD		= --no-print-directory
 CMLX	= -Ilmlx -lXext -lX11 -lm
 

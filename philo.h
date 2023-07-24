@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
+/*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/22 11:24:30 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:36:59 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_list
 	pthread_mutex_t	mutex_odd;
 	pthread_mutex_t	mutex_fork;
 	//pthread_mutex_t	mutex_think;
-	int flag;
+	int 	dif;
 }t_list;
 
 void init_list(t_list *data, int argc, char **argv);
