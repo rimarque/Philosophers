@@ -6,7 +6,7 @@
 #    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/07/24 18:47:15 by rimarque         ###   ########.fr        #
+#    Updated: 2023/07/26 23:29:52 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,23 +26,29 @@ CC = cc
 RM = rm -rf
 
 #------------------------------------  FLAGS  ---------------------------------
-CFLAGS	= -Wall -Wextra -Werror -pthread #-fsanitize=address
+CFLAGS	= -Wall -Wextra -pthread #-fsanitize=address -Werror
 NPD		= --no-print-directory
 CMLX	= -Ilmlx -lXext -lX11 -lm
 
 #-----------------------------------  FILES  --------------------------------
 NAME = philo
 
-SRC = philo.c \
-		init.c \
-		list.c \
-		ft_atoi.c
+OBJ = init.o \
+		list.o \
+		ft_atoi.o \
+		routine.o \
+		threads.o \
+		meal.o \
+		print.o \
+		time.o \
+		check_death.o
 
+HEADER = philo.h \
 #----------------------------------  RULES  ----------------------------------
 all: $(NAME)
 
-$(NAME): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+$(NAME): $(OBJ) $(HEADER)
+	$(CC) $(CFLAGS) philo.c $(OBJ) -o $(NAME)
 	echo "$(GREEN)Philo program READY!$(RESET)"
 
 clean:

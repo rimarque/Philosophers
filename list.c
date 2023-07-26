@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimarque <rimarque>                        +#+  +:+       +#+        */
+/*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:52:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/22 11:21:12 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/26 21:18:07 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,10 @@ t_node *create_node(int count, t_list *data)
 	new = malloc(sizeof(t_node));
 	if (!new)
 		return(NULL);
-	new->index = count;
-	new->fork.status = DROPED;
+	new->id = count;
 	pthread_mutex_init(&new->fork.mutex, NULL);
 	new->status = THINKING;
 	pthread_mutex_init(&new->mutex, NULL);
-	if(new->index % 2 == 0)
-		new->mutex_even = &data->mutex_even;
-	else
-		new->mutex_odd = &data->mutex_odd;
-	pthread_mutex_init(&new->mutex_fork, NULL);
 	new->last_eat = 0;
 	new->data = data;
 	return(new);
@@ -71,9 +65,3 @@ void	free_list(t_list *data)
 	data->head = NULL;
 }
 
-void	rotate(t_list *stack)
-{
-	if (stack->n_eat <= 1)
-		return ;
-	stack->head = stack->head->next;
-}

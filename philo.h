@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/24 21:36:59 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:27:24 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@
 # define THINKING 0
 # define EATING 1
 # define SLEEPING 2
-# define DROPED 3
-# define USING 4
+
+# define RESET "\033[0m"
+# define BLACK "\033[1;30m"
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[1;34m"
+# define PURPLE "\033[1;35m"
+# define CYAN 	"\033[1;36m"
+# define WHITE 	"\033[1;37m"
 
 struct s_list;
 
@@ -37,41 +45,58 @@ typedef struct s_fork
 typedef struct s_node
 {
 	struct s_node	*prev;
-	int				index;
+	int				id;
 	t_fork			fork;
 	int				status;
-	int				time_no_eat;
-	int				last_eat;
+	long int		time_no_eat;
+	long int		last_eat;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	*mutex_even;
-	pthread_mutex_t	*mutex_odd;
-	pthread_mutex_t	mutex_fork;
 	struct s_node	*next;
 	struct s_list	*data;
 }t_node;
 
 typedef struct s_list
 {
-	t_node	*head;
-	int 	index;
-	int		n_philo;
-	int		time_die;
-	int		time_eat;
-	int		time_sleep;
-	int		n_eat;
-	long int	time_boot;
+	t_node			*head;
+	int				n_philo;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				n_eat;
+	int 			dif;
+	int				death;
+	long int		time_boot;
 	pthread_mutex_t	mutex_print;
-	pthread_mutex_t	mutex_even;
-	pthread_mutex_t	mutex_odd;
-	pthread_mutex_t	mutex_fork;
-	//pthread_mutex_t	mutex_think;
-	int 	dif;
+	pthread_mutex_t	mutex_death;
 }t_list;
 
-void init_list(t_list *data, int argc, char **argv);
-int	ft_atoi(const char *str);
+//CHECK_ERROR
+int	error_threads(t_list *data);
+
+//FT_ATOI
+int		ft_atoi(const char *str);
+
+//LIST
 t_node *create_node(int count, t_list *data);
 void	insert_last(t_list *stack, t_node *new);
-void	rotate(t_list *stack);
+
+//INIT
+void	init_list(t_list *data, int argc, char **argv);
+
+//ROUTINE
+void	*routine(void *pointer);
+
+//PRINT
+void	ft_print(t_node *philo, char *msg, char *color);
+
+//TIME
+long int program_time(t_list *data);
+void	ft_usleep(t_node *philo, int time);
+
+//MEAL
+void	meal(t_node *philo);
+
+//CHECK_DEATH
+void *check_death(void *data);
 
 #endif
