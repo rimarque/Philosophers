@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/26 23:27:24 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:03:42 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_list
 	int				death;
 	long int		time_boot;
 	pthread_mutex_t	mutex_print;
+	pthread_mutex_t	mutex_status;
 	pthread_mutex_t	mutex_death;
 }t_list;
 
@@ -77,7 +78,7 @@ int	error_threads(t_list *data);
 int		ft_atoi(const char *str);
 
 //LIST
-t_node *create_node(int count, t_list *data);
+t_node	*create_node(int count, t_list *data);
 void	insert_last(t_list *stack, t_node *new);
 
 //INIT
@@ -94,9 +95,9 @@ long int program_time(t_list *data);
 void	ft_usleep(t_node *philo, int time);
 
 //MEAL
-void	meal(t_node *philo);
+int		meal(t_node *philo);
 
 //CHECK_DEATH
-void *check_death(void *data);
+void	*check_death(void *data);
 
 #endif

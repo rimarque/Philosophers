@@ -46,5 +46,7 @@ void init_list(t_list *data, int argc, char **argv)
 	//if (data->dif < 0)
 	//	data->dif = 0;
 	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->mutex_status, NULL);
+	pthread_mutex_init(&data->mutex_death, NULL);
 	create_list(data);
 }
