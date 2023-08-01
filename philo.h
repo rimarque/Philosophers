@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 03:24:23 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:43:54 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ typedef struct s_list
 	int				n_eat;
 	int 			dif;
 	int				end;
-	int				full;
+	//int				full;
 	long int		time_boot;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_end;
-	pthread_mutex_t	mutex_full;
 }t_list;
 
 //CHECK_ERROR
@@ -84,7 +83,7 @@ void	init_list(t_list *data, int argc, char **argv);
 void	*routine(void *pointer);
 
 //PRINT
-int	ft_print(t_node *philo, char *msg, char *color);
+int		ft_print(t_node *philo, char *msg, char *color);
 
 //TIME
 long int program_time(t_list *data);
@@ -96,5 +95,10 @@ int		meal(t_node *philo);
 //CHECK_THREADS
 void	*check_death(void *data);
 void	*check_full(void *data);
+
+//SET
+void	set_arg(int *arg, int content, pthread_mutex_t *mutex);
+void	set_time(t_node *philo);
+int		cmp_arg(int arg_1, int arg_2, pthread_mutex_t *mutex);
 
 #endif

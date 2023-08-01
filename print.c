@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:42:28 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 03:23:57 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:08:27 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 int	ft_print(t_node *philo, char *msg, char *color)
 {
 	pthread_mutex_lock(&philo->data->mutex_end);
-	if((philo->data->end != 0 && ft_strcmp(msg, "died") != 0) || philo->data->full != 0)
+	if((philo->data->end == -1 && ft_strcmp(msg, "died")) || philo->data->end == 1)
 	{
 		pthread_mutex_unlock(&philo->data->mutex_end);
 		return (-1);

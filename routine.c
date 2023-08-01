@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:46:56 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 03:24:57 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:25:30 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*routine(void *pointer)
 	while(1)
 	{
 		pthread_mutex_lock(&philo->data->mutex_end);
-		if(philo->data->end != 0 || philo->data->full != 0)
+		if(philo->data->end != 0)
 		{
 			pthread_mutex_unlock(&philo->data->mutex_end);
 			return(NULL);

@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:43:51 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 03:26:07 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:48:49 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,30 @@ void	*check_full(void *data)
 	n_full = 0;
 	while(n_full < philo->data->n_philo)
 	{
+		pthread_mutex_lock(&philo->data->mutex_end);
+		if(philo->data->end == -1)
+		{
+			pthread_mutex_unlock(&philo->data->mutex_end);
+			return(NULL);
+		}
+		else
+			pthread_mutex_unlock(&philo->data->mutex_end);
 		count = 0;
 		while (count++ < philo->data->n_philo)
 		{
 			pthread_mutex_lock(&philo->eat);
 			if(philo->n_eat == philo->data->n_eat)
 			{
+				philo->n_eat = -1;
 				n_full++;
-				pthread_mutex_unlock(&philo->eat);
 			}
-			else
-				pthread_mutex_unlock(&philo->eat);
+			pthread_mutex_unlock(&philo->eat);
 			philo = philo->next;
 		}
 	}
-	pthread_mutex_lock(&philo->data->mutex_full);
-	philo->data->full = 1;
-	pthread_mutex_unlock(&philo->data->mutex_full);
+	pthread_mutex_lock(&philo->data->mutex_end);
+	philo->data->end = 1;
+	pthread_mutex_unlock(&philo->data->mutex_end);
 	return (NULL);
 }
 
@@ -53,14 +60,18 @@ void *check_death(void *data)
 		count = 0;
 		while (count++ < philo->data->n_philo)
 		{
-			pthread_mutex_lock(&philo->time);
-			philo->time_no_eat = program_time(philo->data) - philo->last_eat;
-			pthread_mutex_unlock(&philo->time);
+			pthread_mutex_lock(&philo->data->mutex_end);
+			if(philo->data->end == 1)
+			{
+				pthread_mutex_unlock(&philo->data->mutex_end);
+				return(NULL);
+			}
+			else
+				pthread_mutex_unlock(&philo->data->mutex_end);
+			set_time(philo);
 			if(philo->time_no_eat > philo->data->time_die)
 			{
-				pthread_mutex_lock(&philo->data->mutex_end);
-				philo->data->end = -1;
-				pthread_mutex_unlock(&philo->data->mutex_end);
+				set_arg(&philo->data->end, -1, &philo->data->mutex_end);
 				ft_usleep(philo, 1);
 				ft_print(philo, "died", RED);
 				return (NULL);
@@ -70,34 +81,3 @@ void *check_death(void *data)
 	}
 	return (NULL);
 }
-
-/*void *check_death(void *data)
-{
-	t_node	**philo;
-	int		count;
-
-	//philo = (t_node *)pointer;
-	philo = &(*(t_list *)data).head;
-	while(1)
-	{
-		count = 0;
-		while (count++ < (**philo).data->n_philo)
-		{
-			pthread_mutex_lock(&(**philo).data->mutex_time);
-			(**philo).time_no_eat = program_time((**philo).data) - (**philo).last_eat;
-			pthread_mutex_unlock(&(**philo).data->mutex_time);
-			if((**philo).time_no_eat > (**philo).data->time_die)
-			{
-				pthread_mutex_lock(&(**philo).data->mutex_death);
-				(**philo).data->death = -1;
-				pthread_mutex_unlock(&(**philo).data->mutex_death);
-				ft_usleep(*philo, 1);
-				ft_print(*philo, "died", RED);
-				return (NULL);
-			}
-			philo = &(**philo).next;
-		}
-	}
-	return (NULL);
-}*/
-

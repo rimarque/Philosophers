@@ -43,6 +43,7 @@ void init_list(t_list *data, int argc, char **argv)
 	data->head = NULL;
 	data->dif = data->time_eat - data->time_sleep;
 	data->end = 0;
+	//data->full = 0;
 	pthread_mutex_init(&data->mutex_print, NULL);
 	pthread_mutex_init(&data->mutex_end, NULL);
 	create_list(data);

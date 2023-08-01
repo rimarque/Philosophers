@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:38:12 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 02:48:55 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:22:30 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ int	eat(t_node *philo)
 	pthread_mutex_lock(&philo->time);
 	philo->last_eat = program_time(philo->data);
 	pthread_mutex_unlock(&philo->time);
-	pthread_mutex_lock(&philo->eat);
-	philo->n_eat++;
-	pthread_mutex_unlock(&philo->eat);
 	if(ft_print(philo, "is eating", GREEN) == -1)
 		return(0);
 	ft_usleep(philo, philo->data->time_eat);
+	pthread_mutex_lock(&philo->eat);
+	if(philo->n_eat >= 0)
+		philo->n_eat++;
+	pthread_mutex_unlock(&philo->eat);
 	return(0);
 }
 
