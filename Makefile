@@ -6,7 +6,7 @@
 #    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/07/27 18:55:56 by rimarque         ###   ########.fr        #
+#    Updated: 2023/08/01 03:26:25 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC = cc
 RM = rm -rf
 
 #------------------------------------  FLAGS  ---------------------------------
-CFLAGS	= -Wall -Wextra -pthread -fsanitize=thread -Werror
+CFLAGS	= -Wall -Wextra -pthread -g -fsanitize=thread -o3 #-Werror
 NPD		= --no-print-directory
 CMLX	= -Ilmlx -lXext -lX11 -lm
 
@@ -41,7 +41,7 @@ OBJ = init.o \
 		meal.o \
 		print.o \
 		time.o \
-		check_death.o
+		check_threads.o
 
 HEADER = philo.h \
 #----------------------------------  RULES  ----------------------------------

@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:52:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/26 21:18:07 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 02:49:46 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ t_node *create_node(int count, t_list *data)
 	if (!new)
 		return(NULL);
 	new->id = count;
-	pthread_mutex_init(&new->fork.mutex, NULL);
-	new->status = THINKING;
-	pthread_mutex_init(&new->mutex, NULL);
+	new->n_eat = 0;
+	pthread_mutex_init(&new->fork, NULL);
+	pthread_mutex_init(&new->time, NULL);
+	pthread_mutex_init(&new->eat, NULL);
 	new->last_eat = 0;
 	new->data = data;
 	return(new);
@@ -59,7 +60,7 @@ void	free_list(t_list *data)
 	{
 		temp = element;
 		element = element->next;
-		pthread_mutex_destroy(&element->fork.mutex);
+		pthread_mutex_destroy(&element->fork);
 		free(temp);
 	}
 	data->head = NULL;

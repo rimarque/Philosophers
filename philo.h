@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/27 18:03:42 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 03:24:23 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,18 @@
 # define CYAN 	"\033[1;36m"
 # define WHITE 	"\033[1;37m"
 
-struct s_list;
-
-typedef struct s_fork
-{
-	int				status;
-	pthread_mutex_t	mutex;
-}t_fork;
+//struct s_list;
 
 typedef struct s_node
 {
 	struct s_node	*prev;
 	int				id;
-	t_fork			fork;
-	int				status;
+	int				n_eat;
 	long int		time_no_eat;
 	long int		last_eat;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	fork;
+	pthread_mutex_t	time;
+	pthread_mutex_t	eat;
 	struct s_node	*next;
 	struct s_list	*data;
 }t_node;
@@ -64,11 +59,12 @@ typedef struct s_list
 	int				time_sleep;
 	int				n_eat;
 	int 			dif;
-	int				death;
+	int				end;
+	int				full;
 	long int		time_boot;
 	pthread_mutex_t	mutex_print;
-	pthread_mutex_t	mutex_status;
-	pthread_mutex_t	mutex_death;
+	pthread_mutex_t	mutex_end;
+	pthread_mutex_t	mutex_full;
 }t_list;
 
 //CHECK_ERROR
@@ -88,7 +84,7 @@ void	init_list(t_list *data, int argc, char **argv);
 void	*routine(void *pointer);
 
 //PRINT
-void	ft_print(t_node *philo, char *msg, char *color);
+int	ft_print(t_node *philo, char *msg, char *color);
 
 //TIME
 long int program_time(t_list *data);
@@ -97,7 +93,8 @@ void	ft_usleep(t_node *philo, int time);
 //MEAL
 int		meal(t_node *philo);
 
-//CHECK_DEATH
+//CHECK_THREADS
 void	*check_death(void *data);
+void	*check_full(void *data);
 
 #endif

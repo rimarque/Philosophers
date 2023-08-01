@@ -6,27 +6,25 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:46:56 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/27 18:39:11 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/01 03:24:57 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	sleeping(t_node *philo)
+int	sleeping(t_node *philo)
 {
-	pthread_mutex_lock(&philo->data->mutex_status);
-	philo->status = SLEEPING;
-	pthread_mutex_unlock(&philo->data->mutex_status);
-	ft_print(philo, "is sleeping", CYAN);
+	if(ft_print(philo, "is sleeping", CYAN) == -1)
+		return(-1);
 	ft_usleep(philo, philo->data->time_sleep);
+	return(0);
 }
 
-void	thinking(t_node *philo)
+int	thinking(t_node *philo)
 {
-	pthread_mutex_lock(&philo->data->mutex_status);
-	philo->status = THINKING;
-	pthread_mutex_unlock(&philo->data->mutex_status);
-	ft_print(philo, "is thinking", WHITE);
+	if(ft_print(philo, "is thinking", WHITE) == -1)
+		return(-1);
+	return(0);
 }
 
 void	*routine(void *pointer)
@@ -38,12 +36,19 @@ void	*routine(void *pointer)
 		ft_usleep(philo, 1);
 	while(1)
 	{
-		if(philo->status == DEAD) // || data->flag == 1)
+		pthread_mutex_lock(&philo->data->mutex_end);
+		if(philo->data->end != 0 || philo->data->full != 0)
+		{
+			pthread_mutex_unlock(&philo->data->mutex_end);
 			return(NULL);
-		if(meal(philo) == -1)
-			break ;
-		sleeping(philo);
-		thinking(philo);
+		}
+		else
+			pthread_mutex_unlock(&philo->data->mutex_end);
+		meal(philo);
+		if(sleeping(philo) == -1)
+			return(NULL);
+		if(thinking(philo) == -1)
+			return(NULL);
 	}
 	return(NULL);
 }
