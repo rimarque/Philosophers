@@ -6,7 +6,7 @@
 #    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/08/01 19:16:29 by rimarque         ###   ########.fr        #
+#    Updated: 2023/08/02 22:08:01 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,23 +26,24 @@ CC = cc
 RM = rm -rf
 
 #------------------------------------  FLAGS  ---------------------------------
-CFLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=thread -o3
+CFLAGS	= -Wall -Wextra -Werror -pthread -g -O3 #-fsanitize=leak
 NPD		= --no-print-directory
 CMLX	= -Ilmlx -lXext -lX11 -lm
 
 #-----------------------------------  FILES  --------------------------------
 NAME = philo
 
-OBJ = init.o \
-		list.o \
-		ft_atoi.o \
+OBJ = check_error.o \
+		init.o \
+		ft_atol.o \
 		routine.o \
 		threads.o \
 		meal.o \
 		print.o \
 		time.o \
 		check_threads.o \
-		set.o
+		aux.o \
+		free_destroy.o
 
 HEADER = philo.h \
 #----------------------------------  RULES  ----------------------------------

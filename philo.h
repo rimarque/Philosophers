@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 22:43:54 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/03 00:35:44 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_node
 	pthread_mutex_t	eat;
 	struct s_node	*next;
 	struct s_list	*data;
+	pthread_t		th;
 }t_node;
 
 typedef struct s_list
@@ -58,47 +59,53 @@ typedef struct s_list
 	int				time_eat;
 	int				time_sleep;
 	int				n_eat;
-	int 			dif;
+	int				dif;
 	int				end;
-	//int				full;
-	long int		time_boot;
+	int				n_full;
+	long			time_boot;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_end;
 }t_list;
 
-//CHECK_ERROR
-int	error_threads(t_list *data);
+//CHECK_ERROR_ARG
+int			check_n_arg(int argc);
+int			check_nbr(const char *str);
+int			check_sign(long long nbr);
+int			check_int(long long nbr);
 
-//FT_ATOI
-int		ft_atoi(const char *str);
-
-//LIST
-t_node	*create_node(int count, t_list *data);
-void	insert_last(t_list *stack, t_node *new);
+//FT_ATOL
+long long	ft_atol(const char *str);
 
 //INIT
-void	init_list(t_list *data, int argc, char **argv);
+int			init_l(t_list *data, int argc, char **argv);
+
+//THREADS
+int			create_join_th(t_list *data);
 
 //ROUTINE
-void	*routine(void *pointer);
+void		*routine(void *pointer);
 
 //PRINT
-int		ft_print(t_node *philo, char *msg, char *color);
+int			ft_print(t_node *philo, char *msg, char *color);
 
 //TIME
-long int program_time(t_list *data);
-void	ft_usleep(t_node *philo, int time);
+long int	program_time(t_list *data);
+void		ft_usleep(t_node *philo, int time);
 
 //MEAL
-int		meal(t_node *philo);
+int			meal(t_node *philo);
 
 //CHECK_THREADS
-void	*check_death(void *data);
-void	*check_full(void *data);
+void		*check_death(void *data);
+void		*check_full(void *data);
 
 //SET
-void	set_arg(int *arg, int content, pthread_mutex_t *mutex);
-void	set_time(t_node *philo);
-int		cmp_arg(int arg_1, int arg_2, pthread_mutex_t *mutex);
+size_t		ft_strlen(const char *str);
+void		set_arg(int *arg, int content, pthread_mutex_t *mutex);
+void		set_time_no_eat(t_node *philo);
+void		set_time_last_eat(t_node *philo);
+
+//FREE
+void		free_destroy_l(t_list *data);
 
 #endif

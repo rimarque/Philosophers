@@ -1,52 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   free_destroy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 20:52:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/01 16:38:03 by rimarque         ###   ########.fr       */
+/*   Created: 2023/08/02 20:55:30 by rimarque          #+#    #+#             */
+/*   Updated: 2023/08/03 00:49:26 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_node *create_node(int count, t_list *data)
+void	destroy_n(t_node *philo)
 {
-	t_node *new;
-
-	new = malloc(sizeof(t_node));
-	if (!new)
-		return(NULL);
-	new->id = count;
-	new->n_eat = 0;
-	pthread_mutex_init(&new->fork, NULL);
-	pthread_mutex_init(&new->time, NULL);
-	pthread_mutex_init(&new->eat, NULL);
-	new->last_eat = 0;
-	new->data = data;
-	return(new);
+	pthread_mutex_destroy(&philo->fork);
+	pthread_mutex_destroy(&philo->time);
+	pthread_mutex_destroy(&philo->eat);
 }
 
-void	insert_last(t_list *stack, t_node *new)
+void	destroy_l(t_list *data)
 {
-	if (stack->head == NULL)
-	{
-		stack->head = new;
-		new->next = stack->head;
-		new->prev = stack->head;
-	}
-	else
-	{
-		stack->head->prev->next = new;
-		new->prev = stack->head->prev;
-		new->next = stack->head;
-		stack->head->prev = new;
-	}
+	pthread_mutex_destroy(&data->mutex_print);
+	pthread_mutex_destroy(&data->mutex_end);
 }
 
-void	free_list(t_list *data)
+void	free_destroy_l(t_list *data)
 {
 	t_node	*element;
 	t_node	*temp;
@@ -58,11 +37,11 @@ void	free_list(t_list *data)
 	counter = 0;
 	while (counter++ < data->n_philo)
 	{
+		destroy_n(element);
 		temp = element;
 		element = element->next;
-		pthread_mutex_destroy(&element->fork);
 		free(temp);
 	}
+	destroy_l(data);
 	data->head = NULL;
 }
-

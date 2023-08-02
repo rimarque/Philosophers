@@ -6,24 +6,48 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:02:44 by rimarque          #+#    #+#             */
-/*   Updated: 2023/07/31 21:12:06 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/02 23:16:19 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+int	check_error_arg(int argc, char **argv)
+{
+	int	i;
+
+	if (check_n_arg(argc))
+		return (1);
+	i = 1;
+	while (i < argc)
+	{
+		if (check_nbr(argv[i]))
+			return (1);
+		if (check_sign(ft_atol(argv[i])))
+			return (1);
+		if (check_int(ft_atol(argv[i])))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	main(int argc, char **argv)
 {
 	t_list	data;
 
-	if (argc < 5 || argc > 6) //check_error
+	if (check_error_arg(argc, argv))
+		return (1);
+	if (init_l(&data, argc, argv))
 	{
-		printf("philo: INSERT: <n_philo> <time_to_die> ");
-		printf("<time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)>\n");
-		return(1);
+		free_destroy_l(&data);
+		return (1);
 	}
-	init_list(&data, argc, argv);
-	if (error_threads(&data) == -1)
-		return(2);
-	return(0);
+	if (create_join_th(&data))
+	{
+		free_destroy_l(&data);
+		return (2);
+	}
+	free_destroy_l(&data);
+	return (0);
 }
