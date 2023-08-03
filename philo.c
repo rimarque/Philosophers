@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 11:02:44 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/02 23:16:19 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:59:13 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int	main(int argc, char **argv)
 	if (init_l(&data, argc, argv))
 	{
 		free_destroy_l(&data);
-		return (1);
+		return (2);
 	}
 	if (create_join_th(&data))
 	{
 		free_destroy_l(&data);
-		return (2);
+		return (3);
 	}
 	free_destroy_l(&data);
 	return (0);

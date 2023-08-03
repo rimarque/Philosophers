@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:43:51 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/02 22:59:19 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:42:04 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*check_full(void *data)
 		else
 			pthread_mutex_unlock(&philo->data->mutex_end);
 		count = 0;
-		check_philo_full(data);
+		check_philo_full(philo);
 	}
 	set_arg(&philo->data->end, 1, &philo->data->mutex_end);
 	return (NULL);

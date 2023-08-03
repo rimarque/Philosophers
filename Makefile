@@ -6,7 +6,7 @@
 #    By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:57:07 by rimarque          #+#    #+#              #
-#    Updated: 2023/08/02 22:08:01 by rimarque         ###   ########.fr        #
+#    Updated: 2023/08/03 20:00:07 by rimarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC = cc
 RM = rm -rf
 
 #------------------------------------  FLAGS  ---------------------------------
-CFLAGS	= -Wall -Wextra -Werror -pthread -g -O3 #-fsanitize=leak
+CFLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=address
 NPD		= --no-print-directory
 CMLX	= -Ilmlx -lXext -lX11 -lm
 

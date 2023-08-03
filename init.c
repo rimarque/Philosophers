@@ -47,6 +47,7 @@ void	insert_last(t_list *stack, t_node *new)
 		new->next = stack->head;
 		stack->head->prev = new;
 	}
+	stack->size++;
 }
 
 int	create_l(t_list *data)
@@ -66,13 +67,8 @@ int	create_l(t_list *data)
 	return (0);
 }
 
-int	init_l(t_list *data, int argc, char **argv)
+void	init_args(t_list *data, int argc, char **argv)
 {
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	data->time_boot = (current_time.tv_sec * 1000)
-		+ (current_time.tv_usec / 1000);
 	data->n_philo = ft_atol(argv[1]);
 	data->time_die = ft_atol(argv[2]);
 	data->time_eat = ft_atol(argv[3]);
@@ -81,13 +77,30 @@ int	init_l(t_list *data, int argc, char **argv)
 		data->n_eat = -1;
 	if (argc == 6)
 		data->n_eat = ft_atol(argv[5]);
+}
+
+int	init_l(t_list *data, int argc, char **argv)
+{
+	struct timeval	current_time;
+
+	init_args(data, argc, argv);
 	data->head = NULL;
+	data->size = 0;
 	data->dif = data->time_eat - data->time_sleep;
 	data->end = 0;
 	data->n_full = 0;
+	data->th = malloc(sizeof(pthread_t) * (data->n_philo + 1));
+	if (!data->th)
+	{
+		printf("philo: error memory allocation by init_l by malloc\n");
+		return (1);
+	}
 	pthread_mutex_init(&data->mutex_print, NULL);
 	pthread_mutex_init(&data->mutex_end, NULL);
 	if (create_l(data))
 		return (1);
+	gettimeofday(&current_time, NULL);
+	data->time_boot = (current_time.tv_sec * 1000)
+		+ (current_time.tv_usec / 1000);
 	return (0);
 }

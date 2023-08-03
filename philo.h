@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:31:58 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/03 00:35:44 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:28:14 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ typedef struct s_node
 	pthread_mutex_t	eat;
 	struct s_node	*next;
 	struct s_list	*data;
-	pthread_t		th;
 }t_node;
 
 typedef struct s_list
 {
 	t_node			*head;
+	int				size;
 	int				n_philo;
 	int				time_die;
 	int				time_eat;
@@ -65,6 +65,7 @@ typedef struct s_list
 	long			time_boot;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	mutex_end;
+	pthread_t		*th;
 }t_list;
 
 //CHECK_ERROR_ARG

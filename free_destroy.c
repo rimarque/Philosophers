@@ -6,7 +6,7 @@
 /*   By: rimarque <rimarque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:55:30 by rimarque          #+#    #+#             */
-/*   Updated: 2023/08/03 00:49:26 by rimarque         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:01:52 by rimarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,18 @@ void	free_destroy_l(t_list *data)
 	t_node	*temp;
 	int		counter;
 
+	destroy_l(data);
+	free(data->th);
 	if (data->head == NULL)
 		return ;
 	element = data->head;
 	counter = 0;
-	while (counter++ < data->n_philo)
+	while (counter++ < data->size)
 	{
 		destroy_n(element);
 		temp = element;
 		element = element->next;
 		free(temp);
 	}
-	destroy_l(data);
 	data->head = NULL;
 }
