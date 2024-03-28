@@ -52,7 +52,7 @@ If there is an **odd number** of philosofers, it takes three shifts so that ever
 **Time_to_die** must be equal or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
 
 ### Lets test for an even number of philosophers!
-With **time_to_die** >= **time_to_eat** * 2 + 10: the philosophers will never starv and the simulation will never stop
+With **time_to_die** >= **time_to_eat** * 2 + 10: the philosophers will never starv and the simulation wont stop
 ```sh
 $ ./philo 12 410 200 200
 ```
