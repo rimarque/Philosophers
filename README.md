@@ -60,7 +60,7 @@ With **time_to_die** < **time_to_eat** * 2 + 10: a philosopher will starv:
 ``` 
 $ ./philo 12 400 200 200
 ```
-With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10:. a philosopher will starv:
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv:
 ```sh
 $ ./philo 12 410 200 210
 ```
@@ -74,7 +74,7 @@ With **time_to_die** < **time_to_eat** * 3 + 10: a philosopher will starv:
 ```sh
 $ ./philo 13 610 210 200
 ```
-With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10:. a philosopher will starv:
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv:
 ```sh
 $ ./philo 13 610 200 410
 ```
