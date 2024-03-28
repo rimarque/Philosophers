@@ -52,7 +52,7 @@ If there is an **odd number** of philosofers, it takes three shifts so that ever
 **Time_to_die** must be equal or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
 
 ### Lets test for an even number of philosophers!
-With **time_to_die** >= **time_to_eat** * 2 + 10  *&&*  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
+With **time_to_die** >= **time_to_eat** * 2 + 10  &  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
 ```sh
 $ ./philo 12 410 200 200
 ```
@@ -66,19 +66,19 @@ $ ./philo 12 410 200 210
 ```
 
 ### Lets test for an odd number of philosophers!
-With **time_to_die** >= **time_to_eat** * 3 + 10  *&&*  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
+With **time_to_die** >= **time_to_eat** * 3 + 10  &  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
 ```sh
 $ ./philo 13 610 200 400
 ```
-With **time_to_die** < **time_to_eat** * 3 + 10: a philosopher will starv:
+With **time_to_die** < **time_to_eat** * 3 + 10: a philosopher will starv
 ```sh
 $ ./philo 13 610 210 200
 ```
-With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv:
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv
 ```sh
 $ ./philo 13 610 200 410
 ```
-With **one philosopher**, there is only one fork: the philosopher will starv:
+With **one philosopher**, there is only one fork: the philosopher will starv
 ```sh
 $ ./philo 1 610 200 200
 ```
