@@ -44,10 +44,10 @@ $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)
 In order for the simulation to run smoothly, with no philosophers dying of starvation, the parameters need to be set properly. Because there is only one fork per philosopher, and the philosophers need two forks to eat, they must take turns eating. 
 
 If there is an **even number** of philosofers, half the philosophers can it at a time, taking two shifts so that every philosofer as time to eat:
-- **Time_to_die** must be equal or greater than double the **time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
+- **Time_to_die** must be equal or greater than **double the time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
 
 If there is an **odd number** of philosofers, it takes three shifts so that every philosofer as time to eat:
-- **Time_to_die** must be equal or greater than triple the **time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation
+- **Time_to_die** must be equal or greater than **triple the time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation
 
 **Time_to_die** must be equal or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
 
