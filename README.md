@@ -41,15 +41,15 @@ This rule will generate an executable file named `philo`. To launch the executab
 $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)>
 ```
 ## 🥇 **Testing**
-In order for the simulation to run smoothly, with no philosophers dying of starvation, the parameters need to be set properly. Because there is only one fork per philosopher, and the philosophers need two forks to eat, they must take turns eating. 
+In order for the simulation to run smoothly, ensuring no philosophers die of starvation, the parameters need to be set properly. As there is only one fork per philosopher and they require two forks to eat, they must take turns eating.
 
-If there is an **even number** of philosofers, half the philosophers can it at a time, taking two shifts so that every philosofer as time to eat:
-- **Time_to_die** must be equal or greater than **double the time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
+If there is an even number of philosophers, half of them can eat at a time, taking two shifts so that every philosopher has time to eat:
+- **Time_to_die** must be equal to or greater than **double the time_to_eat** plus 10 (for tolerance). This ensures that philosophers have enough time to take turns eating before facing starvation.
 
 If there is an **odd number** of philosofers, it takes three shifts so that every philosofer as time to eat:
-- **Time_to_die** must be equal or greater than **triple the time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation
+- **Time_to_die** must be equal to or greater than **triple the time_to_eat** plus 10 (for tolerance). This ensures that philosophers have sufficient time to take turns eating before facing starvation.
 
-**Time_to_die** must be equal or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
+**Time_to_die** must be equal to or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance). This ensures that a philosopher has enough time to eat and sleep before potentially starving.
 
 ### Lets test for an even number of philosophers!
 With **time_to_die** >= **time_to_eat** * 2 + 10  &  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
