@@ -50,7 +50,7 @@ If there is an **even number** of philosophers, odd numbered philosophers and ev
 If there is an **odd number** of philosofers, beacause the first and last philosophers are both odd and share a fork, it takes three shifts so that every philosofer as time to eat:
 - **Time_to_die** must be equal to or greater than **triple the time_to_eat** plus 10 (for tolerance). This ensures that philosophers have sufficient time to take turns eating before facing starvation.
 
-**Time_to_die** must be equal to or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance). This ensures that a philosopher has enough time to eat and sleep before potentially starving.
+Additionally, **Time_to_die** must be equal to or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance). This ensures that a philosopher has enough time to eat and sleep before potentially starving.
 
 ### Lets test for an even number of philosophers!
 With **time_to_die** >= **time_to_eat** * 2 + 10  &  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
