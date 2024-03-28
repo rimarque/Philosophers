@@ -83,7 +83,7 @@ With **one philosopher**, there is only one fork: the philosopher will starv:
 $ ./philo 1 610 200 200
 ```
 
-## The simulation stops if the number of times a philosopher shoud eat is specified!
+### The simulation stops if the number of times a philosopher shoud eat is specified!
 ```sh
 $ ./philo 5 610 200 200 4
 ```
