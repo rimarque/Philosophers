@@ -25,10 +25,11 @@ git clone git@github.com:rimarque/Philosophers.git
 - Philosophers don´t communicate with each other
 - When a philosopher has finished eating, they put their forks back on the table and
 start sleeping. Once awake, they start thinking again.
+- The table is round, wich means philosopher number 1 sits next to philosopher number number_of_philosophers
 - Number of philosophers, time it takes for a philosopher to die of starvation,
-time it takes a philosopher to eat and time a philosopher spends sleeping are taken as an argument
+time it takes a philosopher to eat and time a philosopher spends sleeping are taken as arguments
 - There is an optional argument: number of times a philosopher should eat
-- The simulation stops when all philosopher have eaten the number of times specified.
+- The simulation stops when all philosophers have eaten the number of times specified.
 If not specified, the simulation stops when a philosopher dies.
 ```
 
@@ -43,10 +44,10 @@ $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)
 ## 🥇 **Testing**
 In order for the simulation to run smoothly, ensuring no philosophers die of starvation, the parameters need to be set properly. As there is only one fork per philosopher and they require two forks to eat, they must take turns eating.
 
-If there is an even number of philosophers, half of them can eat at a time, taking two shifts so that every philosopher has time to eat:
+If there is an **even number** of philosophers, odd numbered philosophers and even numbered phisolophers can take turns eating, taking two shifts so that every philosopher has time to eat:
 - **Time_to_die** must be equal to or greater than **double the time_to_eat** plus 10 (for tolerance). This ensures that philosophers have enough time to take turns eating before facing starvation.
 
-If there is an **odd number** of philosofers, it takes three shifts so that every philosofer as time to eat:
+If there is an **odd number** of philosofers, beacause the first and last philosophers are both odd and share a fork, it takes three shifts so that every philosofer as time to eat:
 - **Time_to_die** must be equal to or greater than **triple the time_to_eat** plus 10 (for tolerance). This ensures that philosophers have sufficient time to take turns eating before facing starvation.
 
 **Time_to_die** must be equal to or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance). This ensures that a philosopher has enough time to eat and sleep before potentially starving.
