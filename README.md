@@ -66,7 +66,7 @@ $ ./philo 12 410 200 210
 ```
 
 ### Lets test for an odd number of philosophers!
-With **time_to_die** >= **time_to_eat** * 3 + 10: the philosophers will never starv and the simulation will never stop
+With **time_to_die** >= **time_to_eat** * 3 + 10: the philosophers will never starv and the simulation wont stop
 ```sh
 $ ./philo 13 610 200 400
 ```
