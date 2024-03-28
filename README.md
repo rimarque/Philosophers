@@ -78,7 +78,7 @@ With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher w
 ```sh
 $ ./philo 13 610 200 410
 ```
-With **one philosopher**, there is only one fork. the philosopher will starv:
+With **one philosopher**, there is only one fork: the philosopher will starv:
 ```sh
 $ ./philo 1 610 200 200
 ```
