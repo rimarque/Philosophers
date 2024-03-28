@@ -41,7 +41,7 @@ This rule will generate an executable file named `philo`. To launch the executab
 $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)>
 ```
 ## 🥇 **Testing**
-In order for the simulation to run smoothly, with no philosophers dying of starvation, the parameters need to be set properly. Because there is only one fork for philosopher, and the philosophers need two forks to eat, they must take turns eating. 
+In order for the simulation to run smoothly, with no philosophers dying of starvation, the parameters need to be set properly. Because there is only one fork per philosopher, and the philosophers need two forks to eat, they must take turns eating. 
 ### Lets test for an even number of philosofers!
 If there is an even number of philosofers, half the philosophers can it at a time, taking two shifts so that every philosofer as time to eat.
 - Time_to_die must be equal or greater than double the time_to_eat plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
