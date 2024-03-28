@@ -40,12 +40,18 @@ This rule will generate an executable file named `philo`. To launch the executab
 ```sh
 $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)>
 ```
-### Lets test for an even number of philosofers! 
-If you establish a time to die that equal or greater than double the time_to_eat plus 10 (for tolerance), the philosopher will never starv and the simulation will never stop:
+## 🥇 **Testing**
+In order for the simulation to run smoothly, with no philosophers dying of starvation, the parameters need to be set properly. Because there is only one fork for philosopher, and the philosophers need two forks to eat, they must take turns eating. 
+### Lets test for an even number of philosofers!
+If there is an even number of philosofers, half the philosophers can it at a time, taking two shifts so that every philosofer as time to eat.
+- Time_to_die must be equal or greater than double the time_to_eat plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
+- Time_to_die must be equal or greater than the sum of time_to_eat plus time_to_sleep plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
+
+With **time_to_die** >= **time_to_eat** * 2 + 10: the philosophers will never starv and the simulation will never stop
 ```sh
 $ ./philo 12 410 200 200
 ```
-Time to die that must also be equal or greater than the sum of time_to_eat plus time_to_sleep plus 10 (for tolerance). Otherwise the philosopher will starv:
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10:. The philosopher will starv:
 ```sh
 $ ./philo 12 410 200 210
 ```
