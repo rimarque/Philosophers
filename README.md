@@ -31,7 +31,6 @@ time it takes a philosopher to eat and time a philosopher spends sleeping are ta
 - The simulation stops when all philosopher have eaten the number of times specified.
 If not specified, the simulation stops when a philosopher dies.
 ```
-<td><image src="img/philo.png"></td>
 
 ## :link: **Compilation**
 To compile the program you should run `make`.
@@ -41,3 +40,13 @@ This rule will generate an executable file named `philo`. To launch the executab
 ```sh
 $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)>
 ```
+### Lets test for an even number of philosofers! 
+If you establish a time to die that is at leats double the time_to_eat plus 10 (for tolerance), the philosopher will never starv and the simulation will never stop:
+```sh
+$ ./philo 12 410 200 200
+```
+Time to die that must also be at leats equal to the sum of time_to_eat plus time_to_sleep plus 10 (for tolerance). Otherwise the philosopher will starv:
+```sh
+$ ./philo 12 410 200 210
+```
+### Lets test for an odd number of philosofers! 
