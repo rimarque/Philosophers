@@ -56,17 +56,17 @@ With **time_to_die** >= **time_to_eat** * 2 + 10  &  **time_to_die** >= **time_t
 ```sh
 $ ./philo 12 410 200 200
 ```
-With **time_to_die** < **time_to_eat** * 2 + 10: a philosopher will starv:
+With **time_to_die** < **time_to_eat** * 2 + 10: a philosopher will starv
 ``` 
 $ ./philo 12 400 200 200
 ```
 <td><image src="img/notEnoughTimetoeatEven.png"></td>
 
-With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv:
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv
 ```sh
 $ ./philo 12 410 200 300
 ```
-<td><image src="img/notEnoughTimetosleepEven.png.png"></td>
+<td><image src="img/notEnoughTimetosleepEven.png"></td>
 
 ### Lets test for an odd number of philosophers!
 With **time_to_die** >= **time_to_eat** * 3 + 10  &  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
