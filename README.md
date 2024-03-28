@@ -42,15 +42,49 @@ $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)
 ```
 ## 🥇 **Testing**
 In order for the simulation to run smoothly, with no philosophers dying of starvation, the parameters need to be set properly. Because there is only one fork per philosopher, and the philosophers need two forks to eat, they must take turns eating. 
-If there is an even number of philosofers, half the philosophers can it at a time, taking two shifts so that every philosofer as time to eat.
-- Time_to_die must be equal or greater than double the time_to_eat plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
-- Time_to_die must be equal or greater than the sum of time_to_eat plus time_to_sleep plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
 
+If there is an **even number** of philosofers, half the philosophers can it at a time, taking two shifts so that every philosofer as time to eat:
+- **Time_to_die** must be equal or greater than double the **time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation.
+
+If there is an **odd number** of philosofers, it takes three shifts so that every philosofer as time to eat:
+- **Time_to_die** must be equal or greater than triple the **time_to_eat** plus 10 (for tolerance): this ensures that philosophers have enough time to take turns eating before facing starvation
+
+**Time_to_die** must be equal or greater than the sum of **time_to_eat** plus **time_to_sleep** plus 10 (for tolerance): this ensures that a philosopher has enough time to eat and sleep before potentially starving.
+
+### Lets test for an even number of philosophers!
 With **time_to_die** >= **time_to_eat** * 2 + 10: the philosophers will never starv and the simulation will never stop
 ```sh
 $ ./philo 12 410 200 200
 ```
-With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10:. The philosopher will starv:
+With **time_to_die** < **time_to_eat** * 2 + 10: a philosopher will starv:
+``` 
+$ ./philo 12 400 200 200
+```
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10:. a philosopher will starv:
 ```sh
 $ ./philo 12 410 200 210
 ```
+
+### Lets test for an odd number of philosophers!
+With **time_to_die** >= **time_to_eat** * 3 + 10: the philosophers will never starv and the simulation will never stop
+```sh
+$ ./philo 13 610 200 400
+```
+With **time_to_die** < **time_to_eat** * 3 + 10: a philosopher will starv:
+```sh
+$ ./philo 13 610 210 200
+```
+With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10:. a philosopher will starv:
+```sh
+$ ./philo 13 610 200 410
+```
+With **one philosopher**, there is only one fork. the philosopher will starv:
+```sh
+$ ./philo 1 610 200 200
+```
+
+## The simulation stops if the number of times a philosopher shoud eat is specified!
+```sh
+$ ./philo 5 610 200 200 4
+```
+<td><image src="img/optional_parameter.png"></td>
