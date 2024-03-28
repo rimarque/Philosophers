@@ -60,10 +60,13 @@ With **time_to_die** < **time_to_eat** * 2 + 10: a philosopher will starv:
 ``` 
 $ ./philo 12 400 200 200
 ```
+<td><image src="img/notEnoughTimetoeatEven.png"></td>
+
 With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv:
 ```sh
-$ ./philo 12 410 200 210
+$ ./philo 12 410 200 300
 ```
+<td><image src="img/notEnoughTimetosleepEven.png.png"></td>
 
 ### Lets test for an odd number of philosophers!
 With **time_to_die** >= **time_to_eat** * 3 + 10  &  **time_to_die** >= **time_to_eat** + **time_to_sleep** + 10: the philosophers will never starv and the simulation wont stop
@@ -72,19 +75,24 @@ $ ./philo 13 610 200 400
 ```
 With **time_to_die** < **time_to_eat** * 3 + 10: a philosopher will starv
 ```sh
-$ ./philo 13 610 210 200
+$ ./philo 13 610 400 200
 ```
+<td><image src="img/notEnoughTimetoeatOdd.png"></td>
+
 With **time_to_die** < **time_to_eat** + **time_to_sleep** + 10: a philosopher will starv
 ```sh
-$ ./philo 13 610 200 410
+$ ./philo 13 610 200 500
 ```
+<td><image src="img/notEnoughTimetosleepOdd.png"></td>
+
 With **one philosopher**, there is only one fork: the philosopher will starv
 ```sh
 $ ./philo 1 610 200 200
 ```
+<td><image src="img/onePhilo.png"></td>
 
 ### The simulation stops if the number of times a philosopher shoud eat is specified!
 ```sh
 $ ./philo 5 610 200 200 4
 ```
-<td><image src="img/optional_parameter.png"></td>
+<td><image src="img/optionalParameter.png"></td>
