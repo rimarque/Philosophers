@@ -41,11 +41,11 @@ This rule will generate an executable file named `philo`. To launch the executab
 $ ./philo <n_philo> <time_to_die> <time_to_eat> <time_to_sleep> <OPCIONAL(n_eat)>
 ```
 ### Lets test for an even number of philosofers! 
-If you establish a time to die that is at leats double the time_to_eat plus 10 (for tolerance), the philosopher will never starv and the simulation will never stop:
+If you establish a time to die that is at least double the time_to_eat plus 10 (for tolerance), the philosopher will never starv and the simulation will never stop:
 ```sh
 $ ./philo 12 410 200 200
 ```
-Time to die that must also be at leats equal to the sum of time_to_eat plus time_to_sleep plus 10 (for tolerance). Otherwise the philosopher will starv:
+Time to die that must also be at least equal to the sum of time_to_eat plus time_to_sleep plus 10 (for tolerance). Otherwise the philosopher will starv:
 ```sh
 $ ./philo 12 410 200 210
 ```
